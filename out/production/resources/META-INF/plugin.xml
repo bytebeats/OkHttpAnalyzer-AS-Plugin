@@ -1,0 +1,37 @@
+<idea-plugin>
+    <id>io.github.bytebeats.OkHttpAnalyzor-AS-Plugin</id>
+    <name>OkHttpAnalyzor</name>
+    <vendor email="happychinapc@gmail.com" url="https://github.com/bytebeats">bytebeats</vendor>
+
+    <version>0.0.1</version>
+
+    <idea-version since-build="201.*"/>
+
+    <description><![CDATA[
+    <p>Created by <a href="https://github.com/bytebeats">bytebeats</a> team.</p>
+    <p>The OkHttp Analyzor plugin can show detail request information from the <b>OkHttp</b> library directly in the Android Studio/Intellij tool window. </p>
+    <p>Also, you can easily <b>create a Java/Kotlin model</b> from the response data. Just click the right mouse button on a root element of the tree (or any other), choose Java or Kotlin, and select a folder for a new file in the project.</p>
+    <p>It supports <b>OkHttp</b> v3 (http://square.github.io/okhttp/) or <b>Retrofit</b> v2 (https://square.github.io/retrofit/)</p>
+    <p><b>Works ONLY with ANDROID</b></p>
+    <p>More details by link: <a href="https://github.com/bytebeats/OkHttpAnalyzor-AS-Plugin">Github: OkHttpAnalyzor-AS-Plugin</a></p>
+    <p>The Source Code: <a href="https://github.com/bytebeats/OkHttpAnalyzor-AS-Plugin">https://github.com/gektor650/OkHttpProfiler-AndroidStudio-Plugin</a></p>
+    ]]></description>
+
+    <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
+         on how to target different products -->
+    <depends>org.jetbrains.android</depends>
+    <depends>com.intellij.modules.androidstudio</depends>
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+    </actions>
+
+    <change-notes>
+        V0.0.1
+    </change-notes>
+</idea-plugin>
