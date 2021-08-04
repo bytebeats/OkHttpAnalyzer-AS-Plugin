@@ -1,4 +1,6 @@
-package me.bytebeats.asp.okhttpanalyzor.view.json
+package me.bytebeats.asp.okhttpanalyzor.view.listener
+
+import me.bytebeats.asp.okhttpanalyzor.view.json.JsonMutableTreeNode
 
 /**
  * @Author bytebeats

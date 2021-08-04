@@ -1,6 +1,8 @@
-package me.bytebeats.asp.okhttpanalyzor.view.json
+package me.bytebeats.asp.okhttpanalyzor.view.adapter
 
 import me.bytebeats.asp.okhttpanalyzor.util.Resources
+import me.bytebeats.asp.okhttpanalyzor.view.json.JsonMutableTreeNode
+import me.bytebeats.asp.okhttpanalyzor.view.listener.TreeNodeMenuListener
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import javax.swing.JMenuItem
@@ -19,10 +21,8 @@ import javax.swing.tree.DefaultMutableTreeNode
 
 class TreeNodeMouseAdapter(private val listener: TreeNodeMenuListener) : MouseAdapter() {
     private fun popupEvent(me: MouseEvent) {
-        val x = me.x
-        val y = me.y
         val tree = me.source as JTree
-        val path = tree.getPathForLocation(x, y) ?: return
+        val path = tree.getPathForLocation(me.x, me.y) ?: return
         val rightClickedNode = path.lastPathComponent as DefaultMutableTreeNode
         val selectionPaths = tree.selectionPaths
 
@@ -53,7 +53,7 @@ class TreeNodeMouseAdapter(private val listener: TreeNodeMenuListener) : MouseAd
         popup.add(openItem)
         popup.add(javaClassItem)
         popup.add(kotlinClassItem)
-        popup.show(tree, x, y)
+        popup.show(tree, me.x, me.y)
     }
 
     override fun mousePressed(me: MouseEvent?) {

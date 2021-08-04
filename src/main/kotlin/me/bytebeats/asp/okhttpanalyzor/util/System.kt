@@ -14,7 +14,7 @@ object System {
         }
     }
 
-    fun openInUrl(url: String?) {
+    fun openUrlInBrowser(url: String?) {
         url?.let {
             try {
                 Desktop.getDesktop().browse(URI.create(it))

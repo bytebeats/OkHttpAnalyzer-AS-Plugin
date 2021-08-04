@@ -1,4 +1,4 @@
-package me.bytebeats.asp.okhttpanalyzor.data
+package me.bytebeats.asp.okhttpanalyzor.enums
 
 /**
  * @Author bytebeats
