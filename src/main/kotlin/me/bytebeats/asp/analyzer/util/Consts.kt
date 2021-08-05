@@ -9,6 +9,9 @@ package me.bytebeats.asp.analyzer.util
  * @Description constant values
  */
 
+const val TAG_KEY = "OkHttpAnalyzer"
+const val TAG_DELIMITER = "_"
+
 const val BUNDLE_STRINGS = "strings"
 const val SELECTED_DEVICE = "selected_device"
 const val SELECTED_PID = "selected_pid"
@@ -52,6 +55,9 @@ const val VAL_DELIMITER = ": "
 const val ARG_START = '('
 const val ARG_END = ')'
 const val ARG_DELIMITER = ','
+
+const val JAVA = "java"
+const val SCR = "scr"
 
 const val MAX_BODY_LENGTH = 300_000
 
