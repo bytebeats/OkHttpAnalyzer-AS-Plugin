@@ -1,6 +1,6 @@
 <idea-plugin>
-    <id>io.github.bytebeats.OkHttpAnalyzor-AS-Plugin</id>
-    <name>OkHttpAnalyzor</name>
+    <id>me.bytebeats.agp.analyzer</id>
+    <name>OkHttpAnalyzer</name>
     <vendor email="happychinapc@gmail.com" url="https://github.com/bytebeats">bytebeats</vendor>
 
     <version>0.0.1</version>
