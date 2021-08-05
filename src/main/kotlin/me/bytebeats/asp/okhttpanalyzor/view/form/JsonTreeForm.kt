@@ -14,7 +14,7 @@ import java.awt.Font
  */
 
 class JsonTreeForm {
-    private val tree = Tree()
+    val tree = Tree()
     val treePanel = FrameScrollPanel(tree)
 
     init {
