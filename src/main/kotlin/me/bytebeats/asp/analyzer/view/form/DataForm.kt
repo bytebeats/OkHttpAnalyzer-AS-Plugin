@@ -17,9 +17,9 @@ import java.awt.BorderLayout
  */
 
 class DataForm {
-    private val panel = SimpleJBPanel()
-    private val table = JBTable()
-    private val tabbedPane = JBTabbedPane()
+    val panel = SimpleJBPanel()
+    val table = JBTable()
+    val tabbedPane = JBTabbedPane()
 
     init {
         val scrollPanel = FrameScrollPanel(table)

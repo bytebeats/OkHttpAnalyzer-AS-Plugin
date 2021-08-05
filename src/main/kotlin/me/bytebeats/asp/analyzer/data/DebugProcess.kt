@@ -9,7 +9,7 @@ package me.bytebeats.asp.analyzer.data
  * @Description TO-DO
  */
 
-class DebugProcess(private val pid: Int, var process: String?, var clientDescription: String?) {
+class DebugProcess(val pid: Int, var process: String?, var clientDescription: String?) {
     fun getClientKey(): String {
         return "$process$clientDescription"
     }

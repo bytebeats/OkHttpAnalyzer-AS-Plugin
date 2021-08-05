@@ -5,7 +5,7 @@
 
     <version>0.0.1</version>
 
-    <idea-version since-build="201.*"/>
+    <idea-version since-build="201.*" />
 
     <description><![CDATA[
     <p>Created by <a href="https://github.com/bytebeats">bytebeats</a> team.</p>
@@ -25,6 +25,9 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
+        <defaultProjectTypeProvider type="Android" />
+        <toolWindow factoryClass="me.bytebeats.asp.analyzer.AdbToolWindowFactory" secondary="true" anchor="bottom"
+            icon="/icons/help-network.png" id="okhttp analyzer" />
     </extensions>
 
     <actions>
