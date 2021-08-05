@@ -13,6 +13,6 @@ import me.bytebeats.asp.okhttpanalyzor.view.FrameScrollPanel
  */
 
 class HeaderForm {
-    private val headerList = JBList<String>()
+    val headerList = JBList<String>()
     val panel = FrameScrollPanel(headerList)
 }
