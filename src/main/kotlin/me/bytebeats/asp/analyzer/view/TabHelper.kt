@@ -17,6 +17,7 @@ import me.bytebeats.asp.analyzer.view.listener.TreeNodeMenuListener
 import java.awt.Color
 import java.awt.Dimension
 import java.io.IOException
+import java.util.*
 import java.util.concurrent.Executors
 import javax.swing.JLabel
 import javax.swing.SwingUtilities
@@ -104,7 +105,7 @@ class TabHelper(private val tabbedPane: JBTabbedPane, private val menuListener: 
         return headers.isEmpty() || headers.find {
             var res = false
             for (type in acceptedContentTypes) {
-                val lowercaseHeader = it.toLowerCase()
+                val lowercaseHeader = it.lowercase(Locale.getDefault())
                 if (lowercaseHeader.startsWith(type) && lowercaseHeader.contains(type)) {
                     res = true
                 }

@@ -1,6 +1,5 @@
 package me.bytebeats.asp.analyzer;
 
-
 import me.bytebeats.asp.analyzer.data.DebugDevice;
 import me.bytebeats.asp.analyzer.data.DebugProcess;
 import me.bytebeats.asp.analyzer.util.Resources;
@@ -68,7 +67,7 @@ public class MainForm {
         clearConstraints.gridx = 3;
         clearConstraints.gridy = 0;
 
-        buttonContainer.add(localizeButton, localeBroConstraints);
+//        buttonContainer.add(localizeButton, localeBroConstraints);
         buttonContainer.add(donateButton, donateButtonConstraints);
         buttonContainer.add(scrollToBottomButton, scrollConstraints);
         buttonContainer.add(clearButton, clearConstraints);

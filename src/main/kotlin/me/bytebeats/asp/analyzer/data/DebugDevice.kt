@@ -1,6 +1,7 @@
 package me.bytebeats.asp.analyzer.data
 
 import com.android.ddmlib.IDevice
+import java.util.*
 
 data class DebugDevice(val device: IDevice) {
     override fun toString(): String {
@@ -15,7 +16,7 @@ data class DebugDevice(val device: IDevice) {
             } else {
                 name
             }
-            "${shortEnd.capitalize()} Android $buildVersion, API $apiLevel"
+            "${shortEnd.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }} Android $buildVersion, API $apiLevel"
         }
     }
 }
