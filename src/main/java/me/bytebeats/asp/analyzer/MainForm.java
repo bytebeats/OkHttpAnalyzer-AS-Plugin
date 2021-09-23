@@ -87,18 +87,18 @@ public class MainForm {
             }
         });
 
-        try {
-            URL url = new URL(ConstsKt.PLUGIN_INITIAL_URL);
-            initialHtml.setPage(url);
-        } catch (IOException e) {
-            e.printStackTrace();
-            URL initialFile = getClass().getClassLoader().getResource("initial.html");
-            if (initialFile != null) {
-                try {
-                    initialHtml.setPage(initialFile);
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
+//        try {
+//            URL url = new URL(ConstsKt.PLUGIN_INITIAL_URL);
+//            initialHtml.setPage(url);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        URL initialFile = getClass().getClassLoader().getResource("initial.html");
+        if (initialFile != null) {
+            try {
+                initialHtml.setPage(initialFile);
+            } catch (IOException e1) {
+                e1.printStackTrace();
             }
         }
 
