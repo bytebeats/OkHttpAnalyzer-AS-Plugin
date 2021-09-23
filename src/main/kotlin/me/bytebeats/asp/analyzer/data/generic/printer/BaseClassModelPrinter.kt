@@ -41,7 +41,7 @@ abstract class BaseClassModelPrinter {
         }
     }
 
-    abstract fun obtainListType(filed: FieldModel): String
+    abstract fun obtainListType(field: FieldModel): String
     abstract fun build(): StringBuilder
     protected abstract fun addField(field: FieldModel)
 }

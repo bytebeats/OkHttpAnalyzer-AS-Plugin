@@ -6,6 +6,7 @@ import me.bytebeats.asp.analyzer.util.RESERVED_WORDS
 import me.bytebeats.asp.analyzer.util.UNDERLINE_CHAR
 import me.bytebeats.asp.analyzer.util.isPrimitive
 import me.bytebeats.asp.analyzer.view.json.JsonMutableTreeNode
+import java.util.*
 import java.util.concurrent.atomic.AtomicInteger
 
 /**
@@ -28,7 +29,11 @@ class JsonNodeToClassConverter {
         var nestingLevel: AtomicInteger? = null
         val ifObjName = when (fieldType) {
             FieldType.OBJECT -> {
-                val innerClassName = obtainUniqueClassName(key).capitalize()
+                val innerClassName = obtainUniqueClassName(key).replaceFirstChar {
+                    if (it.isLowerCase()) it.titlecase(
+                        Locale.getDefault()
+                    ) else it.toString()
+                }
                 createAndFillClass(innerClassName, node, clazzModel)
                 innerClassName
             }
@@ -62,7 +67,11 @@ class JsonNodeToClassConverter {
         node.firstOrNull()?.let {
             when {
                 it.isObject -> {
-                    val innerClassName = obtainUniqueClassName(name).capitalize()
+                    val innerClassName = obtainUniqueClassName(name).replaceFirstChar {
+                        if (it.isLowerCase()) it.titlecase(
+                            Locale.getDefault()
+                        ) else it.toString()
+                    }
                     createAndFillClass(innerClassName, it, null)
                     type = FieldType.OBJECT
                     className = innerClassName
@@ -84,7 +93,11 @@ class JsonNodeToClassConverter {
     }
 
     private fun createAndFillClass(name: String, node: JsonNode?, parent: ObjClazzModel? = null) {
-        val clazzModel = ObjClazzModel(obtainUniqueClassName(name).capitalize())
+        val clazzModel = ObjClazzModel(obtainUniqueClassName(name).replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(
+                Locale.getDefault()
+            ) else it.toString()
+        })
         classModels.add(clazzModel)
         when {
             node?.isObject == true -> {
@@ -163,7 +176,7 @@ class JsonNodeToClassConverter {
                 val builder = StringBuilder()
                 subnames.forEachIndexed { index, s ->
                     if (index == 0) builder.append(s)
-                    else builder.append(s.capitalize())
+                    else builder.append(s.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() })
                 }
                 builder.toString()
             }

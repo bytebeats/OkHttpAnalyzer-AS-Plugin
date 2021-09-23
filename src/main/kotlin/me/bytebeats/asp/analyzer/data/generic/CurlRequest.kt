@@ -2,6 +2,7 @@ package me.bytebeats.asp.analyzer.data.generic
 
 import me.bytebeats.asp.analyzer.data.DebugRequest
 import me.bytebeats.asp.analyzer.util.*
+import java.util.*
 
 /**
  * @Author bytebeats
@@ -22,7 +23,7 @@ class CurlRequest(private val debugRequest: DebugRequest) {
             builder
                 .append(METHOD)
                 .append(SPACE)
-                .append(it.toUpperCase())
+                .append(it.uppercase(Locale.getDefault()))
                 .append(SPACE)
         }
         debugRequest.requestHeaders.forEach { header ->
