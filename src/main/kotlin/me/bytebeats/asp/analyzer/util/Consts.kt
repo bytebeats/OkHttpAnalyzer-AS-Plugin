@@ -59,7 +59,7 @@ const val ARG_DELIMITER = ','
 const val JAVA = "java"
 const val SCR = "scr"
 
-const val PLUGIN_INITIAL_URL = "https://github.com/bytebeats/OkHttpAnalyzer/blob/master/analyzer_as_plugin_initial.html"
+const val PLUGIN_INITIAL_URL = "https://bytebeats.github.io/OkHttpAnalyzer/analyzer_as_plugin_initial.html"
 
 const val MAX_BODY_LENGTH = 300_000
 
