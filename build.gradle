@@ -7,6 +7,9 @@ plugins {
 group 'io.github.bytebeats'
 version '0.0.1'
 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 repositories {
     mavenCentral()
 }
@@ -25,7 +28,6 @@ intellij {
 }
 
 compileKotlin {
-    kotlinOptions.jvmTarget = "1.8"
     kotlinOptions.jvmTarget = "1.8"
 }
 

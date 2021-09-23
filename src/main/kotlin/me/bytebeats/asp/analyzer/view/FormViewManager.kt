@@ -69,11 +69,12 @@ class FormViewManager(private val form: MainForm, settings: Preferences, private
         resizeTableColumnsWidth()
         form.localizeButton.text = Resources.getString("localize") + " " + project.name;
         form.localizeButton.addActionListener {
-            BrowserUtil.open("https://localebro.com/?utm_source=OkHttpProfiler&utm_medium=IDE&utm_campaign=localize-button")
+//            BrowserUtil.open("https://localebro.com/?utm_source=OkHttpProfiler&utm_medium=IDE&utm_campaign=localize-button")
+            BrowserUtil.open("https://github.com/bytebeats/OkHttpAnalyzer-AS-Plugin")
         }
 
         form.donateButton.addActionListener {
-            BrowserUtil.open("https://www.buymeacoffee.com/gektor650")
+            BrowserUtil.open("https://www.buymeacoffee.com/bytebeats")
         }
 
         form.clearButton.addActionListener {

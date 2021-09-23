@@ -1,7 +1,9 @@
 package me.bytebeats.asp.analyzer;
 
+import com.intellij.ui.JBColor;
 import me.bytebeats.asp.analyzer.data.DebugDevice;
 import me.bytebeats.asp.analyzer.data.DebugProcess;
+import me.bytebeats.asp.analyzer.util.ConstsKt;
 import me.bytebeats.asp.analyzer.util.Resources;
 
 import javax.swing.*;
@@ -36,10 +38,10 @@ public class MainForm {
         localizeButton = new JButton();
         localizeButton.setPreferredSize(new Dimension(200, 30));
         localizeButton.setIcon(Resources.INSTANCE.getIcon("localebro.png"));
-//        localizeButton.setOpaque(true);
-//        localizeButton.setBorder(null);
-//        localizeButton.setBackground(JBColor.WHITE);
-//        localizeButton.setForeground(JBColor.DARK_GRAY);
+        localizeButton.setOpaque(true);
+        localizeButton.setBorder(null);
+        localizeButton.setBackground(JBColor.WHITE);
+        localizeButton.setForeground(JBColor.DARK_GRAY);
         localizeButton.setText(Resources.INSTANCE.getString("localize"));
         GridBagConstraints localeBroConstraints = new GridBagConstraints();
         localeBroConstraints.gridx = 0;
@@ -48,7 +50,7 @@ public class MainForm {
         donateButton = new JButton();
         donateButton.setPreferredSize(new Dimension(100, 30));
         donateButton.setText(Resources.INSTANCE.getString("donate"));
-        donateButton.setIcon(Resources.INSTANCE.getIcon("donate.png"));
+//        donateButton.setIcon(Resources.INSTANCE.getIcon("donate.png"));
         GridBagConstraints donateButtonConstraints = new GridBagConstraints();
         donateButtonConstraints.gridx = 1;
         donateButtonConstraints.gridy = 0;
@@ -86,7 +88,7 @@ public class MainForm {
         });
 
         try {
-            URL url = new URL("https://itkacher.github.io/OkHttpProfiler/plugin_initial.html");
+            URL url = new URL(ConstsKt.PLUGIN_INITIAL_URL);
             initialHtml.setPage(url);
         } catch (IOException e) {
             e.printStackTrace();
