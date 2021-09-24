@@ -10,7 +10,6 @@ import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.psi.PsiManager
 import com.intellij.psi.codeStyle.CodeStyleManager
 import me.bytebeats.asp.analyzer.MainForm
-import me.bytebeats.asp.analyzer.Preferences
 import me.bytebeats.asp.analyzer.data.DebugRequest
 import me.bytebeats.asp.analyzer.data.RequestDataSource
 import me.bytebeats.asp.analyzer.data.generic.JsonNodeToClassConverter
@@ -19,7 +18,6 @@ import me.bytebeats.asp.analyzer.data.generic.printer.JavaClassModelPrinter
 import me.bytebeats.asp.analyzer.data.generic.printer.KotlinClassModelPrinter
 import me.bytebeats.asp.analyzer.enums.TableColumn
 import me.bytebeats.asp.analyzer.util.JAVA
-import me.bytebeats.asp.analyzer.util.Resources
 import me.bytebeats.asp.analyzer.util.SCR
 import me.bytebeats.asp.analyzer.util.System.copyToClipBoard
 import me.bytebeats.asp.analyzer.view.adapter.TableMouseAdapter
@@ -51,7 +49,7 @@ import javax.swing.JTable
  */
 
 
-class FormViewManager(private val form: MainForm, settings: Preferences, private val project: Project) :
+class FormViewManager(private val form: MainForm, private val project: Project) :
         TreeNodeMenuListener, OnRequestItemClickListener {
 
     private val dataForm = DataForm()
@@ -67,10 +65,6 @@ class FormViewManager(private val form: MainForm, settings: Preferences, private
         requestTable.setDefaultRenderer(Any::class.java, RequestTableCellRenderer())
         requestTable.selectionModel = ForcedListSelectionModel()
         resizeTableColumnsWidth()
-        form.localizeButton.text = Resources.getString("localize") + " " + project.name;
-        form.localizeButton.addActionListener {
-            BrowserUtil.open("https://github.com/bytebeats/OkHttpAnalyzer-AS-Plugin")
-        }
 
         form.donateButton.addActionListener {
             BrowserUtil.open("https://www.buymeacoffee.com/bytebeats")

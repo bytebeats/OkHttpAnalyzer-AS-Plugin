@@ -20,7 +20,7 @@ class AdbToolWindowFactory : ToolWindowFactory, DumbAware {
     override fun createToolWindowContent(project: Project, toolWindow: ToolWindow) {
         val preferences = Preferences(PropertiesComponent.getInstance(project))
         val mainForm = MainForm()
-        val adbManager = AdbManager(mainForm, project, preferences, toolWindow)
+        val adbManager = AdbManager(mainForm, project, preferences)
         toolWindow.component.add(mainForm.panel)
     }
 }

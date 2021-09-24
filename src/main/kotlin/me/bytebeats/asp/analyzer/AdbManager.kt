@@ -6,7 +6,6 @@ import com.android.ddmlib.IDevice
 import com.android.ddmlib.logcat.LogCatMessage
 import com.android.tools.idea.logcat.AndroidLogcatService
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.wm.ToolWindow
 import me.bytebeats.asp.analyzer.data.DebugDevice
 import me.bytebeats.asp.analyzer.data.DebugProcess
 import me.bytebeats.asp.analyzer.data.RequestDataSource
@@ -32,14 +31,13 @@ import javax.swing.SwingUtilities
 class AdbManager(
     private val mainForm: MainForm,
     private val project: Project,
-    private val preferences: Preferences,
-    private val toolWindow: ToolWindow
+    private val preferences: Preferences
 ) {
     private val logcatService = AndroidLogcatService.getInstance()
 
     private var selectedDevice: IDevice? = null
     private var selectedProcess: DebugProcess? = null
-    private val requestTableManager = FormViewManager(mainForm, preferences, project)
+    private val requestTableManager = FormViewManager(mainForm, project)
 
     private val executor = Executors.newFixedThreadPool(1)
 
