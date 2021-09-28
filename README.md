@@ -10,10 +10,9 @@
 [![GitHub stars](https://img.shields.io/github/stars/bytebeats/OkHttpAnalyzer-AS-Plugin.svg?style=social&label=Star&maxAge=2592000)](https://github.com/bytebeats/OkHttpAnalyzer-AS-Plugin/stargazers/)
 [![GitHub watchers](https://img.shields.io/github/watchers/bytebeats/OkHttpAnalyzer-AS-Plugin.svg?style=social&label=Watch&maxAge=2592000)](https://github.com/bytebeats/OkHttpAnalyzer-AS-Plugin/watchers/)
 
-The OkHttp Analyzer plugin can show detail request information from the &lt;b>OkHttp&lt;/b> library directly in the Android Studio/Intellij tool window.
+The OkHttp Analyzer plugin can show detail request information from the `OkHttp` library directly in the `Android Studio/IntelliJ` tool window.
 
-<br>Android Studio 插件 OkHttpAnalyzer 用于拦截 OkHttp 的请求和响应的详情信息. 它作为一个窗口, 处于 IDE 的侧边栏.
-
+Android Studio 插件 `OkHttpAnalyzer` 用于拦截 `OkHttp` 的请求和响应的详情信息. 它作为一个窗口, 处于 IDE 的侧边栏.
 
 ## Stargazers over time
 [![Stargazers over time](https://starchart.cc/bytebeats/OkHttpAnalyzer-AS-Plugin.svg)](https://starchart.cc/bytebeats/OkHttpAnalyzer-AS-Plugin)
