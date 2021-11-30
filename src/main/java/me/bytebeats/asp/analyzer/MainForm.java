@@ -7,9 +7,14 @@ import me.bytebeats.asp.analyzer.util.Resources;
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Vector;
 
 /**
  * @Author bytebeats
@@ -27,9 +32,16 @@ public class MainForm {
     private JPanel mainContainer;
     private JEditorPane initialHtml;
     private JPanel buttonContainer;
+    private JComboBox<String> methodList;
+    private JTextField keywordFilter;
     private final JButton scrollToBottomButton;
     private final JButton clearButton;
     private final JButton donateButton;
+
+    private final Set<String> methods = new HashSet<>();
+
+    private ItemListener methodItemListener;
+    private AbstractAction onEnter;
 
     public MainForm() {
         donateButton = new JButton();
@@ -79,6 +91,15 @@ public class MainForm {
                 e1.printStackTrace();
             }
         }
+        resetMethodList();
+        keywordFilter.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (onEnter != null) {
+                    onEnter.actionPerformed(e);
+                }
+            }
+        });
     }
 
     public JPanel getPanel() {
@@ -91,6 +112,10 @@ public class MainForm {
 
     public JComboBox<DebugProcess> getAppList() {
         return appList;
+    }
+
+    public JComboBox<String> getMethodList() {
+        return methodList;
     }
 
     public JButton getScrollToBottomButton() {
@@ -111,5 +136,32 @@ public class MainForm {
 
     public JEditorPane getInitialHtml() {
         return initialHtml;
+    }
+
+    public void setMethodItemListener(ItemListener listener) {
+        this.methodItemListener = listener;
+    }
+
+    public void setOnEnter(AbstractAction action) {
+        this.onEnter = action;
+    }
+
+    public String getKeyword() {
+        return keywordFilter.getText().toString();
+    }
+
+    public void resetMethodList() {
+        methods.clear();
+        methods.add("ALL");
+        methodList.setModel(new DefaultComboBoxModel<String>(new Vector<String>(methods)));
+        methodList.addItemListener(methodItemListener);
+    }
+
+    public void updateMethodList(String method) {
+        if (!methods.contains(method)) {
+            methods.add(method);
+            methodList.setModel(new DefaultComboBoxModel<String>(new Vector<String>(methods)));
+            methodList.addItemListener(methodItemListener);
+        }
     }
 }

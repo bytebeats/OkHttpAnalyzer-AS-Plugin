@@ -14,8 +14,10 @@ import me.bytebeats.asp.analyzer.util.TAG_DELIMITER
 import me.bytebeats.asp.analyzer.util.TAG_KEY
 import me.bytebeats.asp.analyzer.view.FormViewManager
 import org.jetbrains.android.sdk.AndroidSdkUtils
+import java.awt.event.ActionEvent
 import java.awt.event.ItemEvent
 import java.util.concurrent.Executors
+import javax.swing.AbstractAction
 import javax.swing.DefaultComboBoxModel
 import javax.swing.SwingUtilities
 
@@ -37,6 +39,7 @@ class AdbManager(
 
     private var selectedDevice: IDevice? = null
     private var selectedProcess: DebugProcess? = null
+    private var selectedMethod: String? = null
     private val requestTableManager = FormViewManager(mainForm, project)
 
     private val executor = Executors.newFixedThreadPool(1)
@@ -54,6 +57,7 @@ class AdbManager(
                         val debugRequest = RequestDataSource.getRequestFromMessage(id, messageType, line.message)
                         if (debugRequest != null) {
                             try {
+                                mainForm.updateMethodList(debugRequest.method)
                                 SwingUtilities.invokeLater {
                                     requestTableManager.insertOrUpdate(debugRequest)
                                 }
@@ -65,14 +69,20 @@ class AdbManager(
                 }
             }
         }
-
-        override fun onCleared() {
-            super.onCleared()
-        }
     }
 
     init {
         initDeviceList(project)
+        mainForm.setMethodItemListener {
+            if (it.stateChange == ItemEvent.SELECTED) {
+                requestTableManager.methodFilter = mainForm.methodList.selectedItem as String
+            }
+        }
+        mainForm.setOnEnter(object : AbstractAction() {
+            override fun actionPerformed(e: ActionEvent?) {
+                requestTableManager.keywordFilter = mainForm.keyword
+            }
+        })
     }
 
     private fun initDeviceList(project: Project) {
@@ -204,7 +214,8 @@ class AdbManager(
                 selectedProcess = client
                 log("selectedProcess $defaultSelection")
                 requestTableManager.clear()
-//                requestTableController.addAll(RequestDataSource.getRequestList(client.getClientKey()))
+//                requestTableManager.addAll(RequestDataSource.getRequestList(client.getClientKey()))
+//                mainForm.resetMethodList()
             }
         }
         if (defaultSelection != null) {

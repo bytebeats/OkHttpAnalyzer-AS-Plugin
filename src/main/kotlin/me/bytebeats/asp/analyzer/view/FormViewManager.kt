@@ -35,7 +35,6 @@ import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
 import java.io.IOException
-import java.util.*
 import java.util.concurrent.atomic.AtomicBoolean
 import javax.swing.JTable
 
@@ -57,6 +56,17 @@ class FormViewManager(private val form: MainForm, private val project: Project) 
     private val requestListModel = RequestTableModel()
     private val tabsHelper = TabHelper(dataForm.tabbedPane, this)
     private val firstLaunch = AtomicBoolean(true)
+
+    var methodFilter: String? = null
+        set(value) {
+            field = value
+            clear()
+        }
+    var keywordFilter: String? = null
+        set(value) {
+            field = value
+            clear()
+        }
 
     init {
         requestTable.addMouseListener(TableMouseAdapter(this))
@@ -107,7 +117,7 @@ class FormViewManager(private val form: MainForm, private val project: Project) 
     }
 
     override fun onClick(request: DebugRequest) {
-//        fillRequestInfo(debugRequest)
+        fillRequestInfo(request)
     }
 
     private fun fillRequestInfo(debugRequest: DebugRequest) {
@@ -127,7 +137,9 @@ class FormViewManager(private val form: MainForm, private val project: Project) 
         if (requestTable.selectedColumn == -1) {
             requestTable.scrollRectToVisible(requestTable.getCellRect(requestTable.rowCount - 1, 0, true))
         }
-        requestListModel.addOrUpdate(debugRequest)
+        if (debugRequest.isValid() || debugRequest.isValid(methodFilter, keywordFilter)) {
+            requestListModel.addOrUpdate(debugRequest)
+        }
     }
 
     fun clear() {
@@ -240,6 +252,6 @@ class FormViewManager(private val form: MainForm, private val project: Project) 
     }
 
     fun addAll(requestList: List<DebugRequest>) {
-        requestListModel.addAll(requestList)
+        requestListModel.addAll(requestList.filter { it.isValid() || it.isValid(methodFilter, keywordFilter) })
     }
 }
