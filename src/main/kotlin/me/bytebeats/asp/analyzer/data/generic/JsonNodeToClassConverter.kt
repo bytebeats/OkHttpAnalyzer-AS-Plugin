@@ -29,11 +29,7 @@ class JsonNodeToClassConverter {
         var nestingLevel: AtomicInteger? = null
         val ifObjName = when (fieldType) {
             FieldType.OBJECT -> {
-                val innerClassName = obtainUniqueClassName(key).replaceFirstChar {
-                    if (it.isLowerCase()) it.titlecase(
-                        Locale.getDefault()
-                    ) else it.toString()
-                }
+                val innerClassName = obtainUniqueClassName(key).uppercase(Locale.getDefault())
                 createAndFillClass(innerClassName, node, clazzModel)
                 innerClassName
             }
@@ -67,11 +63,7 @@ class JsonNodeToClassConverter {
         node.firstOrNull()?.let {
             when {
                 it.isObject -> {
-                    val innerClassName = obtainUniqueClassName(name).replaceFirstChar {
-                        if (it.isLowerCase()) it.titlecase(
-                            Locale.getDefault()
-                        ) else it.toString()
-                    }
+                    val innerClassName = obtainUniqueClassName(name).uppercase(Locale.getDefault())
                     createAndFillClass(innerClassName, it, null)
                     type = FieldType.OBJECT
                     className = innerClassName
@@ -93,11 +85,7 @@ class JsonNodeToClassConverter {
     }
 
     private fun createAndFillClass(name: String, node: JsonNode?, parent: ObjClazzModel? = null) {
-        val clazzModel = ObjClazzModel(obtainUniqueClassName(name).replaceFirstChar {
-            if (it.isLowerCase()) it.titlecase(
-                Locale.getDefault()
-            ) else it.toString()
-        })
+        val clazzModel = ObjClazzModel(obtainUniqueClassName(name).uppercase(Locale.getDefault()))
         classModels.add(clazzModel)
         when {
             node?.isObject == true -> {
@@ -176,7 +164,7 @@ class JsonNodeToClassConverter {
                 val builder = StringBuilder()
                 subnames.forEachIndexed { index, s ->
                     if (index == 0) builder.append(s)
-                    else builder.append(s.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() })
+                    else builder.append(s.uppercase(Locale.getDefault()))
                 }
                 builder.toString()
             }

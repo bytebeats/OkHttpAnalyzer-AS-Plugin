@@ -3,9 +3,11 @@
     <name>OkHttpAnalyzer</name>
     <vendor email="happychinapc@gmail.com" url="https://github.com/bytebeats">bytebeats</vendor>
     <version>0.1.0</version>
-    <idea-version since-build="201.*" />
+    <!-- Android Studio 4.1+ -->
+    <!-- see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html -->
+    <idea-version since-build="202.*" />
     <description><![CDATA[
-    <p>The OkHttp Analyzer plugin can show detail request information from the <b>OkHttp</b> library directly in the Android Studio/Intellij tool window. </p>
+    <p>The OkHttp Analyzer plugin can show detail request information from the <b>OkHttp</b> library directly in the Android Studio/Intellij IDEA tool window. </p>
     <p>Also, you can easily <b>create a Java/Kotlin model</b> from the response data. Just click the right mouse button on a root element of the tree (or any other), choose Java or Kotlin, and select a folder for a new file in the project.</p>
     <p>It supports <b>OkHttp</b> v3 (http://square.github.io/okhttp/) or <b>Retrofit</b> v2 (https://square.github.io/retrofit/)</p>
     <p><b>Works ONLY with ANDROID</b></p>
@@ -16,7 +18,8 @@
     <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
          on how to target different products -->
     <depends>org.jetbrains.android</depends>
-    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.androidstudio</depends>
+<!--    <depends>com.intellij.modules.platform</depends>-->
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->

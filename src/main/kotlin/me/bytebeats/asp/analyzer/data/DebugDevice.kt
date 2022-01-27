@@ -8,7 +8,7 @@ data class DebugDevice(val device: IDevice) {
         val buildVersion = device.getProperty(IDevice.PROP_BUILD_VERSION)
         val apiLevel = device.getProperty(IDevice.PROP_BUILD_API_LEVEL)
         return if (device.isEmulator) {
-            "Emulator ${device.avdName} Android $buildVersion, API $apiLevel"
+            "Emulator ${device.avdName.orEmpty()} Android $buildVersion, API $apiLevel"
         } else {
             val name = device.name.orEmpty().replace("_", " ")
             val shortEnd = if (name.length > 20) {
@@ -16,7 +16,7 @@ data class DebugDevice(val device: IDevice) {
             } else {
                 name
             }
-            "${shortEnd.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }} Android $buildVersion, API $apiLevel"
+            "${shortEnd.uppercase(Locale.getDefault())} Android $buildVersion, API $apiLevel"
         }
     }
 }

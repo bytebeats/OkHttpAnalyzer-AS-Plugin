@@ -47,9 +47,9 @@ class AdbManager(
     private val logcatListener = object : AndroidLogcatService.LogcatListener {
         override fun onLogLineReceived(line: LogCatMessage) {
             executor.execute {
-                val tag = line.tag
+                val tag = line.header.tag
                 val selected = selectedProcess
-                if (selected != null && selected.pid == line.pid && tag.startsWith(TAG_KEY)) {
+                if (selected != null && selected.pid == line.header.pid && tag.startsWith(TAG_KEY)) {
                     val sequences = tag.split(TAG_DELIMITER)
                     if (sequences.size == 3) {
                         val id = sequences[1]
