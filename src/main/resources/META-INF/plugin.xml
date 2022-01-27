@@ -1,8 +1,8 @@
 <idea-plugin>
-    <id>me.bytebeats.agp.analyzer</id>
+    <id>me.bytebeats.asp.analyzer</id>
     <name>OkHttpAnalyzer</name>
     <vendor email="happychinapc@gmail.com" url="https://github.com/bytebeats">bytebeats</vendor>
-    <version>0.0.1</version>
+    <version>0.1.0</version>
     <idea-version since-build="201.*" />
     <description><![CDATA[
     <p>The OkHttp Analyzer plugin can show detail request information from the <b>OkHttp</b> library directly in the Android Studio/Intellij tool window. </p>
@@ -30,6 +30,6 @@
     </actions>
 
     <change-notes>
-        V0.0.1 the 1st release.
+        v0.1.0 the 1st release.
     </change-notes>
 </idea-plugin>
