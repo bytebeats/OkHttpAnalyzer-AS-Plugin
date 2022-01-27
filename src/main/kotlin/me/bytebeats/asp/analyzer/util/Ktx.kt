@@ -13,3 +13,5 @@ import com.fasterxml.jackson.databind.JsonNode
 
 fun JsonNode?.isPrimitive(): Boolean =
     if (this == null) false else !this.isNull && !this.isObject && !this.isArray && !this.isTextual && !this.isPojo
+
+fun Boolean?.orFalse(): Boolean = this ?: false

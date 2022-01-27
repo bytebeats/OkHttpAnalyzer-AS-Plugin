@@ -16,14 +16,14 @@ repositories {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.5'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.1'
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
     pluginName = 'OkHttpAnalyzer'
     updateSinceUntilBuild = true
-    version = '2021.2'
+    version = '2021.3'
     plugins = ['android']
 }
 
@@ -33,5 +33,6 @@ compileKotlin {
 
 patchPluginXml {
     changeNotes = """
+                v0.1.0 the 1st release.
                 """
 }

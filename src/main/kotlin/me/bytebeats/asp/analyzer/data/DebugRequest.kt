@@ -1,9 +1,6 @@
 package me.bytebeats.asp.analyzer.data
 
-import me.bytebeats.asp.analyzer.util.MAX_BODY_LENGTH
-import me.bytebeats.asp.analyzer.util.NEW_LINE
-import me.bytebeats.asp.analyzer.util.Resources
-import me.bytebeats.asp.analyzer.util.SPACE
+import me.bytebeats.asp.analyzer.util.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -30,7 +27,6 @@ data class DebugRequest(val id: String) {
     val responseHeaders = mutableListOf<String>()
     private val responseBody = StringBuilder()
     var error: String? = null
-
 
     private val trash = StringBuilder()
     private var isRequestBodyLimitAchieved = false
@@ -103,4 +99,21 @@ data class DebugRequest(val id: String) {
     }
 
     fun isValid(): Boolean = method != null
+
+    fun isValid(method: String?, keyword: String?): Boolean {
+        if (method.isNullOrEmpty() || this.method == method) {
+            return true
+        }
+        if (keyword.isNullOrEmpty()) {
+            return true
+        }
+        val regex = keyword.toRegex()
+        if (url?.contains(regex).orFalse()
+            || requestHeaders.any { it.contains(regex) }
+            || responseHeaders.any { it.contains(regex) }
+            || error?.contains(regex).orFalse()) {
+            return true
+        }
+        return false
+    }
 }
