@@ -2,7 +2,7 @@ package me.bytebeats.asp.analyzer;
 
 import me.bytebeats.asp.analyzer.data.DebugDevice;
 import me.bytebeats.asp.analyzer.data.DebugProcess;
-import me.bytebeats.asp.analyzer.util.Resources;
+import me.bytebeats.asp.analyzer.util.ResourcesKt;
 
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
@@ -46,14 +46,14 @@ public class MainForm {
     public MainForm() {
         donateButton = new JButton();
         donateButton.setPreferredSize(new Dimension(100, 30));
-        donateButton.setText(Resources.INSTANCE.getString("donate"));
-        donateButton.setIcon(Resources.INSTANCE.getIcon("donate.png"));
+        donateButton.setText(ResourcesKt.getString("donate"));
+        donateButton.setIcon(ResourcesKt.getIcon("donate.png"));
         GridBagConstraints donateButtonConstraints = new GridBagConstraints();
         donateButtonConstraints.gridx = 1;
         donateButtonConstraints.gridy = 0;
 
         scrollToBottomButton = new JButton();
-        scrollToBottomButton.setIcon(Resources.INSTANCE.getIcon("scroll.png"));
+        scrollToBottomButton.setIcon(ResourcesKt.getIcon("scroll.png"));
         scrollToBottomButton.setPreferredSize(new Dimension(30, 30));
         GridBagConstraints scrollConstraints = new GridBagConstraints();
         scrollConstraints.gridx = 2;
@@ -61,7 +61,7 @@ public class MainForm {
 
         clearButton = new JButton();
         clearButton.setPreferredSize(new Dimension(30, 30));
-        clearButton.setIcon(Resources.INSTANCE.getIcon("delete.png"));
+        clearButton.setIcon(ResourcesKt.getIcon("delete.png"));
         GridBagConstraints clearConstraints = new GridBagConstraints();
         clearConstraints.gridx = 3;
         clearConstraints.gridy = 0;
@@ -147,20 +147,20 @@ public class MainForm {
     }
 
     public String getKeyword() {
-        return keywordFilter.getText().toString();
+        return keywordFilter.getText();
     }
 
     public void resetMethodList() {
         methods.clear();
         methods.add("ALL");
-        methodList.setModel(new DefaultComboBoxModel<String>(new Vector<String>(methods)));
+        methodList.setModel(new DefaultComboBoxModel<>(new Vector<>(methods)));
         methodList.addItemListener(methodItemListener);
     }
 
     public void updateMethodList(String method) {
         if (!methods.contains(method)) {
             methods.add(method);
-            methodList.setModel(new DefaultComboBoxModel<String>(new Vector<String>(methods)));
+            methodList.setModel(new DefaultComboBoxModel<>(new Vector<>(methods)));
             methodList.addItemListener(methodItemListener);
         }
     }

@@ -41,19 +41,15 @@ object RequestDataSource {
             MessageType.REQ_HEADER -> request.addHeader(message, true)
             MessageType.REQ_END -> request.addHeader(message, true)
             MessageType.RESP_TIME -> request.duration = message
-            MessageType.RESP_STATUS -> {
-                try {
-                    request.responseCode = message.toInt()
-                } catch (_: NumberFormatException) {
-                }
+            MessageType.RESP_STATUS -> try {
+                request.responseCode = message.toInt()
+            } catch (_: NumberFormatException) {
             }
             MessageType.RESP_HEADER -> request.addHeader(message, false)
             MessageType.RESP_BODY -> request.addBody(message, false)
             MessageType.RESP_ERROR -> request.error = message
             MessageType.RESP_END -> request.closeResponse()
-            else -> {
-                request.trash(message)
-            }
+            else -> request.trash(message)
         }
     }
 

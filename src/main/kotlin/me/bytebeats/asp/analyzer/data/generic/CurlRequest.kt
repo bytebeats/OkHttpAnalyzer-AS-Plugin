@@ -23,7 +23,7 @@ class CurlRequest(private val debugRequest: DebugRequest) {
             builder
                 .append(METHOD)
                 .append(SPACE)
-                .append(it.uppercase(Locale.getDefault()))
+                .append(it.toUpperCase(Locale.getDefault()))
                 .append(SPACE)
         }
         debugRequest.requestHeaders.forEach { header ->

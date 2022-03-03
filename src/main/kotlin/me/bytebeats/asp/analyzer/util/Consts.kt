@@ -45,7 +45,7 @@ const val GENERIC_END = '>'
 
 const val NULL_STRING = "null"
 
-const val IMPORT_NULLABLE = "import android.support.annotation.Nullable;\r\n"
+const val IMPORT_NULLABLE = "import androidx.annotation.Nullable;\r\n"
 const val CONST_VISIBILITY = "private "
 const val NULLABLE_ANNOTATION = "@Nullable"
 

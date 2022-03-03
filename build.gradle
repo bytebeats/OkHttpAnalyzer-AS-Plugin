@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'io.github.bytebeats'
-version '0.0.1'
+version '0.1.0'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -21,10 +21,12 @@ if (!hasProperty('StudioCompilePath')) {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.1'
-
-    testImplementation group: 'junit', name: 'junit', version: '4.12'
     compileOnly fileTree(dir: "$StudioCompilePath/plugins/android/lib", include: ['*.jar'])
     compileOnly fileTree(dir: "$StudioCompilePath/lib", include: ['*.jar'])
+
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+    testImplementation fileTree(dir: "$StudioCompilePath/plugins/android/lib", include: ['*.jar'])
+    testImplementation fileTree(dir: "$StudioCompilePath/lib", include: ['*.jar'])
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
@@ -34,24 +36,25 @@ intellij {
 //    version = '2021.3'
 //    version = '211.7628.21'
 //    type = 'IC'
-    plugins = ['android']
-    intellij.localPath = project.hasProperty("StudioRunPath") ? StudioRunPath : StudioCompilePath
+//    plugins = ['android']
+    localPath = project.hasProperty("StudioRunPath") ? StudioRunPath : StudioCompilePath
     instrumentCode {
         compilerVersion = "213.6461.79"
+//        compilerVersion = "211.7628.21"
     }
-
+//
     instrumentTestCode {
         compilerVersion = "213.6461.79"
+//        compilerVersion = "211.7628.21"
     }
 }
 
-runIde {
-    // Absolute path to installed target 3.5 Android Studio to use as IDE Development Instance
-    // The "Contents" directory is macOS specific.
-//    ideDir = file('/Applications/Android Studio.app/Contents')
-    def dir = project.hasProperty("StudioRunPath") ? StudioRunPath : StudioCompilePath
-    ideDir = file(dir)
-}
+//runIde {
+//    // Absolute path to installed target 3.5 Android Studio to use as IDE Development Instance
+//    // The "Contents" directory is macOS specific.
+//    def dir = project.hasProperty("StudioRunPath") ? StudioRunPath : StudioCompilePath
+//    ideDir = file(dir)
+//}
 
 compileKotlin {
     kotlinOptions.jvmTarget = "1.8"
@@ -76,5 +79,5 @@ task(verifySetup) {
     }
 }
 
-compileJava.dependsOn(verifySetup)
+compileJava.dependsOn verifySetup
 buildSearchableOptions.enabled = false

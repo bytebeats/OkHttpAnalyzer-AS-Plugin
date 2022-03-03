@@ -23,5 +23,5 @@ enum class FieldType(
     OBJECT("Object", "Any?", false, "Object"),
     LIST("List", "List", false, "List"),
     STRING("String", "String?", false, "String"),
-    UNDEFINED("?", "?", false, "?");
+    UNDEFINED("?", "*", false, "?");
 }

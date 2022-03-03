@@ -39,9 +39,9 @@ class JavaClassModelPrinter(private val classModels: List<ObjClazzModel>) : Base
             } else {
                 objClazzModel.fieldModels.forEach { fieldModel -> addField(fieldModel) }
             }
-            if (classModels.isNotEmpty() && index == 0) {
+            if (classModels.size > 1 && index == 0) {
 
-            } else if (classModels.isNotEmpty() && index == classModels.lastIndex) {
+            } else if (classModels.size > 1 && index == classModels.lastIndex) {
                 builder.append(END_OF_CLASS)
                 builder.append(LINE_BREAK)
                 builder.append(END_OF_CLASS)

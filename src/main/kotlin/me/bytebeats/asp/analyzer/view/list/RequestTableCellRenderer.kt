@@ -27,10 +27,10 @@ class RequestTableCellRenderer : DefaultTableCellRenderer() {
         val component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column)
         val model = table?.model
         if (model is RequestTableModel) {
-            when {
-                model.isFallenDown(row) -> component.foreground = Color.RED
-                isSelected -> component.foreground = Color.WHITE
-                else -> component.foreground = UIManager.getLookAndFeelDefaults().getColor("EditorPane.foreground")
+            component.foreground = when {
+                model.isFallenDown(row) -> Color.RED
+                isSelected -> Color.WHITE
+                else -> UIManager.getLookAndFeelDefaults().getColor("EditorPane.foreground")
             }
         }
         return component

@@ -52,8 +52,7 @@ class KotlinClassModelPrinter(private val classModels: List<ObjClazzModel>) : Ba
 
     override fun addField(field: FieldModel) {
         addSerializationAnnotation(field.originalName)
-        builder.append(TABULATION, VAL_CONST)
-        builder.append(field.name, VAL_DELIMITER)
+        builder.append(TABULATION, VAL_CONST, field.name, VAL_DELIMITER)
 
         when {
             field.type == FieldType.LIST -> {

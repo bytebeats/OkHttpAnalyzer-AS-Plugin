@@ -6,7 +6,7 @@ import com.intellij.ui.CollectionListModel
 import com.intellij.ui.components.JBTabbedPane
 import me.bytebeats.asp.analyzer.data.DebugRequest
 import me.bytebeats.asp.analyzer.enums.Tabs
-import me.bytebeats.asp.analyzer.util.Resources
+import me.bytebeats.asp.analyzer.util.getString
 import me.bytebeats.asp.analyzer.view.adapter.TreeNodeMouseAdapter
 import me.bytebeats.asp.analyzer.view.form.HeaderForm
 import me.bytebeats.asp.analyzer.view.form.JsonPlainTextForm
@@ -74,26 +74,26 @@ class TabHelper(private val tabbedPane: JBTabbedPane, private val menuListener: 
         tabbedPane.minimumSize = Dimension(100, 50)
 
         requestRawTabIdx = tabbedPane.tabCount
-        tabbedPane.addTab(Resources.getString(Tabs.TAB_REQ_RAW.resName), requestRawForm.panel)
+        tabbedPane.addTab(getString(Tabs.TAB_REQ_RAW.resName), requestRawForm.panel)
         requestHeaderTabIdx = tabbedPane.tabCount
-        tabbedPane.addTab(Resources.getString(Tabs.TAB_REQ_HEADERS.resName), requestHeaderForm.panel)
+        tabbedPane.addTab(getString(Tabs.TAB_REQ_HEADERS.resName), requestHeaderForm.panel)
         requestJsonTabIdx = tabbedPane.tabCount
-        tabbedPane.addTab(Resources.getString(Tabs.TAB_REQ_JSON.resName), requestJsonForm.treePanel)
+        tabbedPane.addTab(getString(Tabs.TAB_REQ_JSON.resName), requestJsonForm.treePanel)
         requestFormattedJsonTabIdx = tabbedPane.tabCount
-        tabbedPane.addTab(Resources.getString(Tabs.TAB_REQ_FORMATTED.resName), requestFormattedJsonForm.panel)
+        tabbedPane.addTab(getString(Tabs.TAB_REQ_FORMATTED.resName), requestFormattedJsonForm.panel)
         requestJsonForm.tree.addMouseListener(TreeNodeMouseAdapter(menuListener))
 
         responseRawTabIdx = tabbedPane.tabCount
-        tabbedPane.addTab(Resources.getString(Tabs.TAB_RESP_RAW.resName), responseRawForm.panel)
+        tabbedPane.addTab(getString(Tabs.TAB_RESP_RAW.resName), responseRawForm.panel)
         responseHeaderTabIdx = tabbedPane.tabCount
-        tabbedPane.addTab(Resources.getString(Tabs.TAB_RESP_HEADERS.resName), responseHeaderForm.panel)
+        tabbedPane.addTab(getString(Tabs.TAB_RESP_HEADERS.resName), responseHeaderForm.panel)
         responseJsonTabIdx = tabbedPane.tabCount
-        tabbedPane.addTab(Resources.getString(Tabs.TAB_RESP_JSON.resName), responseJsonForm.treePanel)
+        tabbedPane.addTab(getString(Tabs.TAB_RESP_JSON.resName), responseJsonForm.treePanel)
         responseFormattedJsonTabIdx = tabbedPane.tabCount
-        tabbedPane.addTab(Resources.getString(Tabs.TAB_RESP_FORMATTED.resName), responseFormattedJsonForm.panel)
+        tabbedPane.addTab(getString(Tabs.TAB_RESP_FORMATTED.resName), responseFormattedJsonForm.panel)
 
         errorTabIdx = tabbedPane.tabCount
-        tabbedPane.addTab(Resources.getString(Tabs.TAB_ERROR_MESSAGE.resName), errorRawForm.panel)
+        tabbedPane.addTab(getString(Tabs.TAB_ERROR_MESSAGE.resName), errorRawForm.panel)
 
         responseJsonForm.tree.addMouseListener(TreeNodeMouseAdapter(menuListener))
         defaultBackground = tabbedPane.getForegroundAt(0)
@@ -105,29 +105,25 @@ class TabHelper(private val tabbedPane: JBTabbedPane, private val menuListener: 
         return headers.isEmpty() || headers.find {
             var res = false
             for (type in acceptedContentTypes) {
-                val lowercaseHeader = it.lowercase(Locale.getDefault())
-                if (lowercaseHeader.startsWith(type) && lowercaseHeader.contains(type)) {
+                val lowercaseHeader = it.toLowerCase(Locale.getDefault())
+                if (lowercaseHeader.startsWith(contentTypeHeader) && lowercaseHeader.contains(type)) {
                     res = true
                 }
             }
-            return res
+            res
         } != null
     }
 
     fun fill(request: DebugRequest) {
         curRequest = request
-        clearTabs(Resources.getString("processing"))
+        clearTabs(getString("processing"))
         executor.execute {
             val isTextRequest = isAcceptedHeaders(request.requestHeaders)
             val isTextResponse = isAcceptedHeaders(request.responseHeaders)
 
-            val requestJson = if (isTextRequest) {
-                request.requestBodyString()
-            } else null
+            val requestJson = if (isTextRequest) request.requestBodyString() else null
             val requestJsonPair = getTreeModelPrettifyPair(requestJson)
-            val responseJson = if (isTextResponse) {
-                request.responseBodyString()
-            } else null
+            val responseJson = if (isTextResponse) request.responseBodyString() else null
             val responseJsonPair = getTreeModelPrettifyPair(responseJson)
 
             SwingUtilities.invokeLater {
@@ -157,8 +153,8 @@ class TabHelper(private val tabbedPane: JBTabbedPane, private val menuListener: 
                     } else {
                         disableTab(requestJsonTabIdx)
                     }
-                    if (requestJsonPair?.second != null && requestJsonPair.second != "") {
-                        requestFormattedJsonForm.setText(requestJsonPair.second)
+                    if (!requestJsonPair?.second.isNullOrEmpty()) {
+                        requestFormattedJsonForm.setText(requestJsonPair?.second)
                         enableTab(requestFormattedJsonTabIdx)
                     } else {
                         disableTab(requestFormattedJsonTabIdx)
@@ -169,8 +165,8 @@ class TabHelper(private val tabbedPane: JBTabbedPane, private val menuListener: 
                     } else {
                         disableTab(responseJsonTabIdx)
                     }
-                    if (responseJsonPair?.second != null && responseJsonPair.second != "") {
-                        responseFormattedJsonForm.setText(responseJsonPair.second)
+                    if (!responseJsonPair?.second.isNullOrEmpty()) {
+                        responseFormattedJsonForm.setText(responseJsonPair?.second)
                         enableTab(responseFormattedJsonTabIdx)
                     } else {
                         disableTab(responseFormattedJsonTabIdx)
@@ -197,12 +193,12 @@ class TabHelper(private val tabbedPane: JBTabbedPane, private val menuListener: 
         disableTab(responseFormattedJsonTabIdx)
         disableTab(errorTabIdx)
 
-        responseRawForm.setText(process)
-        updateResponseHeaderTabs(listOf(process))
+        requestRawForm.setText(process)
+        updateRequestHeaderTabs(listOf(process))
         requestFormattedJsonForm.setText(process)
         requestJsonForm.tree.model = null
 
-        requestRawForm.setText(process)
+        responseRawForm.setText(process)
         updateResponseHeaderTabs(listOf(process))
         responseFormattedJsonForm.setText(process)
         responseJsonForm.tree.model = null
@@ -229,7 +225,7 @@ class TabHelper(private val tabbedPane: JBTabbedPane, private val menuListener: 
 
         tabbedPane.setEnabledAt(tabIndex, false)
         tabbedPane.setForegroundAt(tabIndex, Color.GRAY)
-        tabbedPane.setToolTipTextAt(tabIndex, Resources.getString("empty"))
+        tabbedPane.setToolTipTextAt(tabIndex, getString("empty"))
         if (tabbedPane.selectedIndex == tabIndex) {
             tabbedPane.selectedIndex = 0
         }
@@ -274,13 +270,14 @@ class TabHelper(private val tabbedPane: JBTabbedPane, private val menuListener: 
     }
 
     private fun getTreeModelPrettifyPair(json: String?): Pair<JsonTreeModel, String?>? {
-        return if (json != null) {
+        if (json != null) {
             val node = parseModel(json)
-            node?.let {
-                val prettyJson = prettifyNode(it)
-                val model = JsonTreeModel(it)
-                Pair(model, prettyJson)
+            if (node != null) {
+                val prettyJson = prettifyNode(node)
+                val model = JsonTreeModel(node)
+                return Pair(model, prettyJson)
             }
-        } else null
+        }
+        return null
     }
 }

@@ -2,7 +2,7 @@ package me.bytebeats.asp.analyzer.view.list
 
 import me.bytebeats.asp.analyzer.data.DebugRequest
 import me.bytebeats.asp.analyzer.enums.TableColumn
-import me.bytebeats.asp.analyzer.util.Resources
+import me.bytebeats.asp.analyzer.util.getString
 import javax.swing.table.DefaultTableModel
 
 /**
@@ -48,8 +48,8 @@ class RequestTableModel : DefaultTableModel() {
 
     private fun convert2RowData(request: DebugRequest): Array<Any?> {
         val code = when {
-            request.error?.isNotEmpty() == true -> Resources.getString("request_list_fallen")
-            request.responseCode == null -> Resources.getString("request_list_loading")
+            !request.error.isNullOrEmpty() -> getString("request_list_fallen")
+            request.responseCode == null -> getString("request_list_loading")
             else -> request.responseCode.toString()
         }
         return arrayOf(code, request.method, request.url, request.duration, request.requestTime)

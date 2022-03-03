@@ -4,7 +4,7 @@ import com.intellij.openapi.ui.ComboBox
 import com.intellij.uiDesigner.core.GridConstraints
 import me.bytebeats.asp.analyzer.data.DebugDevice
 import me.bytebeats.asp.analyzer.data.DebugProcess
-import me.bytebeats.asp.analyzer.util.Resources
+import me.bytebeats.asp.analyzer.util.getIcon
 import me.bytebeats.asp.analyzer.view.FrameScrollPanel
 import me.bytebeats.asp.analyzer.view.JBKPanel
 import java.awt.Desktop
@@ -38,8 +38,8 @@ class KForm {
     private val topPanel = JBKPanel(GridLayout(1, 4))
 
     init {
-        scrollToBottomBtn.icon = Resources.getIcon("scroll.png")
-        clearBtn.icon = Resources.getIcon("delete.png")
+        scrollToBottomBtn.icon = getIcon("scroll.png")
+        clearBtn.icon = getIcon("delete.png")
 
         val preferredSize = Dimension(200, 30)
 

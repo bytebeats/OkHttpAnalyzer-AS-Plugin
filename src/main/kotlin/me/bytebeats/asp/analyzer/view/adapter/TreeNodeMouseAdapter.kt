@@ -1,6 +1,6 @@
 package me.bytebeats.asp.analyzer.view.adapter
 
-import me.bytebeats.asp.analyzer.util.Resources
+import me.bytebeats.asp.analyzer.util.getString
 import me.bytebeats.asp.analyzer.view.json.JsonMutableTreeNode
 import me.bytebeats.asp.analyzer.view.listener.TreeNodeMenuListener
 import java.awt.event.MouseAdapter
@@ -32,20 +32,20 @@ class TreeNodeMouseAdapter(private val listener: TreeNodeMenuListener) : MouseAd
         }
         val treeNode = rightClickedNode as JsonMutableTreeNode
         val popup = JPopupMenu()
-        val copy = JMenuItem(Resources.getString("jtree_popup_copy_to_clipboard"))
+        val copy = JMenuItem(getString("jtree_popup_copy_to_clipboard"))
         copy.addActionListener {
             listener.copyToClipboard(treeNode)
         }
-        val openItem = JMenuItem(Resources.getString("jtree_popup_open_in_editor"))
+        val openItem = JMenuItem(getString("jtree_popup_open_in_editor"))
         openItem.addActionListener {
             listener.openInEditor(treeNode)
         }
-        val javaClassItem = JMenuItem(Resources.getString("jtree_popup_create_java_class"))
+        val javaClassItem = JMenuItem(getString("jtree_popup_create_java_class"))
         javaClassItem.addActionListener {
             listener.createJavaModel(treeNode)
         }
         popup.add(javaClassItem)
-        val kotlinClassItem = JMenuItem(Resources.getString("jtree_popup_create_kotlin_class"))
+        val kotlinClassItem = JMenuItem(getString("jtree_popup_create_kotlin_class"))
         kotlinClassItem.addActionListener {
             listener.createKotlinModel(treeNode)
         }

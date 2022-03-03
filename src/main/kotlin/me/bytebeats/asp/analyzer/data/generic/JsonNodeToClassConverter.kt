@@ -29,7 +29,7 @@ class JsonNodeToClassConverter {
         var nestingLevel: AtomicInteger? = null
         val ifObjName = when (fieldType) {
             FieldType.OBJECT -> {
-                val innerClassName = obtainUniqueClassName(key).uppercase(Locale.getDefault())
+                val innerClassName = obtainUniqueClassName(key).toUpperCase(Locale.getDefault())
                 createAndFillClass(innerClassName, node, clazzModel)
                 innerClassName
             }
@@ -63,7 +63,7 @@ class JsonNodeToClassConverter {
         node.firstOrNull()?.let {
             when {
                 it.isObject -> {
-                    val innerClassName = obtainUniqueClassName(name).uppercase(Locale.getDefault())
+                    val innerClassName = obtainUniqueClassName(name).toUpperCase(Locale.getDefault())
                     createAndFillClass(innerClassName, it, null)
                     type = FieldType.OBJECT
                     className = innerClassName
@@ -85,13 +85,12 @@ class JsonNodeToClassConverter {
     }
 
     private fun createAndFillClass(name: String, node: JsonNode?, parent: ObjClazzModel? = null) {
-        val clazzModel = ObjClazzModel(obtainUniqueClassName(name).uppercase(Locale.getDefault()))
+        val clazzModel = ObjClazzModel(obtainUniqueClassName(name).toUpperCase(Locale.getDefault()))
         classModels.add(clazzModel)
         when {
             node?.isObject == true -> {
                 clazzModel.parent = parent
-                val fields = node.fields()
-                fields?.forEach { field ->
+                node.fields()?.forEach { field ->
                     clazzModel.fieldModels.add(
                         createUniqueField(
                             clazzModel,
@@ -115,6 +114,7 @@ class JsonNodeToClassConverter {
             node.isBoolean -> FieldType.BOOLEAN
             node.isNull -> FieldType.OBJECT
             node.isLong -> FieldType.LONG
+            node.isInt -> FieldType.INTEGER
             node.isDouble -> FieldType.DOUBLE
             node.isFloat -> FieldType.FLOAT
             node.isArray -> FieldType.LIST
@@ -137,7 +137,7 @@ class JsonNodeToClassConverter {
     }
 
     private fun obtainUniqueNameFrom(map: MutableMap<String, Int>, name: String): String {
-        var tmpName = if (name.startsWith(".")) {
+        val tmpName = if (name.startsWith(".")) {
             obtainUniqueClassName("ArrayListOf")
         } else {
             reformatName(name)
@@ -164,7 +164,7 @@ class JsonNodeToClassConverter {
                 val builder = StringBuilder()
                 subnames.forEachIndexed { index, s ->
                     if (index == 0) builder.append(s)
-                    else builder.append(s.uppercase(Locale.getDefault()))
+                    else builder.append(s.toUpperCase(Locale.getDefault()))
                 }
                 builder.toString()
             }

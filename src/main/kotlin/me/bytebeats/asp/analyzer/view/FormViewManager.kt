@@ -19,7 +19,7 @@ import me.bytebeats.asp.analyzer.data.generic.printer.KotlinClassModelPrinter
 import me.bytebeats.asp.analyzer.enums.TableColumn
 import me.bytebeats.asp.analyzer.util.JAVA
 import me.bytebeats.asp.analyzer.util.SCR
-import me.bytebeats.asp.analyzer.util.System.copyToClipBoard
+import me.bytebeats.asp.analyzer.util.copyToClipBoard
 import me.bytebeats.asp.analyzer.view.adapter.TableMouseAdapter
 import me.bytebeats.asp.analyzer.view.form.DataForm
 import me.bytebeats.asp.analyzer.view.json.JsonMutableTreeNode

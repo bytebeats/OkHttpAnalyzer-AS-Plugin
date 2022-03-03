@@ -1,11 +1,11 @@
 package me.bytebeats.asp.analyzer.view.adapter
 
 import me.bytebeats.asp.analyzer.data.generic.CurlRequest
-import me.bytebeats.asp.analyzer.util.Resources
-import me.bytebeats.asp.analyzer.util.System.copyToClipBoard
-import me.bytebeats.asp.analyzer.util.System.openUrlInBrowser
-import me.bytebeats.asp.analyzer.view.listener.OnRequestItemClickListener
+import me.bytebeats.asp.analyzer.util.copyToClipBoard
+import me.bytebeats.asp.analyzer.util.getString
+import me.bytebeats.asp.analyzer.util.openUrlInBrowser
 import me.bytebeats.asp.analyzer.view.list.RequestTableModel
+import me.bytebeats.asp.analyzer.view.listener.OnRequestItemClickListener
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import javax.swing.JMenuItem
@@ -27,22 +27,22 @@ class TableMouseAdapter(private val listener: OnRequestItemClickListener?) : Mou
         val row = source.rowAtPoint(me.point)
         val request = (source.model as RequestTableModel).getRequestAt(row)
         val popupMenu = JPopupMenu()
-        val copyUrl = JMenuItem(Resources.getString("jtable_popup_copy_url"))
+        val copyUrl = JMenuItem(getString("jtable_popup_copy_url"))
         copyUrl.addActionListener {
             request?.let { copyToClipBoard(it.url) }
         }
 
-        val openUrl = JMenuItem(Resources.getString("jtable_popup_open_url_in_browser"))
+        val openUrl = JMenuItem(getString("jtable_popup_open_url_in_browser"))
         openUrl.addActionListener {
             request?.let { openUrlInBrowser(it.url) }
         }
 
-        val copyResponse = JMenuItem(Resources.getString("jtable_popup_copy_response"))
+        val copyResponse = JMenuItem(getString("jtable_popup_copy_response"))
         copyResponse.addActionListener {
             request?.let { copyToClipBoard(it.responseBodyString()) }
         }
 
-        val copyCurlRequest = JMenuItem(Resources.getString("copy_curl_request"))
+        val copyCurlRequest = JMenuItem(getString("copy_curl_request"))
         copyCurlRequest.addActionListener {
             request?.let { copyToClipBoard(CurlRequest(it).toString()) }
         }

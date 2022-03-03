@@ -15,20 +15,21 @@ import me.bytebeats.asp.analyzer.util.SELECTED_TAB
  */
 
 class Preferences(private val properties: PropertiesComponent) {
-    var selectedDevice: String? = properties.getValue(SELECTED_DEVICE)
+    var selectedDevice: String?
+        get() = properties.getValue(SELECTED_DEVICE)
         set(value) {
-            field = value
-            properties.setValue(SELECTED_DEVICE, field)
+            properties.setValue(SELECTED_DEVICE, value)
         }
 
-    var selectedProcess: String? = properties.getValue(SELECTED_PID)
+    var selectedProcess: String?
+        get() = properties.getValue(SELECTED_PID)
         set(value) {
-            field = value
-            properties.setValue(SELECTED_PID, field)
+            properties.setValue(SELECTED_PID, value)
         }
-    var selectedTabName: String? = properties.getValue(SELECTED_TAB)
+
+    var selectedTabName: String?
+        get() = properties.getValue(SELECTED_TAB)
         set(value) {
-            field = value
-            properties.setValue(SELECTED_TAB, field)
+            properties.setValue(SELECTED_TAB, value)
         }
 }

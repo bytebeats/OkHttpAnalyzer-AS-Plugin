@@ -44,17 +44,17 @@ data class DebugRequest(val id: String) {
         if (isRequest) {
             if (!isRequestBodyLimitAchieved && requestBody.length < MAX_BODY_LENGTH) {
                 requestBody.append(bodyPart)
-            } else {
+            } else if (!isRequestBodyLimitAchieved) {
                 requestBody.clear()
-                requestBody.append(Resources.getString("max_length"))
+                requestBody.append(getString("max_length"))
                 isRequestBodyLimitAchieved = true
             }
         } else {
             if (!isResponseBodyLimitAchieved && responseBody.length < MAX_BODY_LENGTH) {
                 responseBody.append(bodyPart)
-            } else {
+            } else if (!isResponseBodyLimitAchieved) {
                 responseBody.clear()
-                responseBody.append(Resources.getString("max_length"))
+                responseBody.append(getString("max_length"))
                 isResponseBodyLimitAchieved = true
             }
         }
@@ -81,9 +81,9 @@ data class DebugRequest(val id: String) {
 
     private fun rawDataString(headers: Collection<String>, body: StringBuilder): StringBuilder {
         val builder = StringBuilder()
-        builder.append(method).append(SPACE).append(url).append(NEW_LINE).append(NEW_LINE)
+        builder.append(method, SPACE, url, NEW_LINE, NEW_LINE)
         for (header in headers) {
-            builder.append(header).append(NEW_LINE)
+            builder.append(header, NEW_LINE)
         }
         builder.append(NEW_LINE)
         builder.append(body)

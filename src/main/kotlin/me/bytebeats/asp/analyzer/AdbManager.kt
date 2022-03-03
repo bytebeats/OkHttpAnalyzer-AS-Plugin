@@ -90,7 +90,7 @@ class AdbManager(
             override fun deviceChanged(device: IDevice?, p1: Int) {
                 log("deviceChanged $device")
                 device?.let {
-                    attachToDevice(device)
+                    attachToDevice(it)
                 }
             }
 
@@ -151,11 +151,10 @@ class AdbManager(
             mainForm.mainContainer.isVisible = true
             val debugDevices = ArrayList<DebugDevice>()
             for (device in devices) {
-                val debugDevice = DebugDevice(device)
                 if (device.name == selectedDeviceName) {
                     selectedDevice = device
                 }
-                debugDevices.add(debugDevice)
+                debugDevices.add(DebugDevice(device))
             }
             val model = DefaultComboBoxModel(debugDevices.toTypedArray())
             val list = mainForm.deviceList
@@ -214,8 +213,8 @@ class AdbManager(
                 selectedProcess = client
                 log("selectedProcess $defaultSelection")
                 requestTableManager.clear()
-//                requestTableManager.addAll(RequestDataSource.getRequestList(client.getClientKey()))
-//                mainForm.resetMethodList()
+//                requestTableManager.addAll(RequestDataSource.r(client.getClientKey()))
+                mainForm.resetMethodList()
             }
         }
         if (defaultSelection != null) {
