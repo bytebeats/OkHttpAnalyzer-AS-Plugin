@@ -46,7 +46,6 @@ public class MainForm {
     public MainForm() {
         donateButton = new JButton();
         donateButton.setPreferredSize(new Dimension(30, 30));
-//        donateButton.setText(ResourcesKt.getString("donate"));
         donateButton.setIcon(ResourcesKt.getIcon("donate.png"));
         GridBagConstraints donateButtonConstraints = new GridBagConstraints();
         donateButtonConstraints.gridx = 1;
