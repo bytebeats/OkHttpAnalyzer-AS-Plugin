@@ -5,8 +5,7 @@
     <version>0.1.0</version>
     <!-- Android Studio 4.1+ -->
     <!-- see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html -->
-    <idea-version since-build="211.7628" />
-<!--    <idea-version since-build="201" until-build="211.7628.21" />-->
+    <idea-version since-build="201" until-build="211.*" />
     <description><![CDATA[
     <p>The OkHttp Analyzer plugin can show detail request information from the <b>OkHttp</b> library directly in the Android Studio/Intellij IDEA tool window. </p>
     <p>Also, you can easily <b>create a Java/Kotlin model</b> from the response data. Just click the right mouse button on a root element of the tree (or any other), choose Java or Kotlin, and select a folder for a new file in the project.</p>
@@ -19,7 +18,7 @@
     <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
          on how to target different products -->
     <depends>org.jetbrains.android</depends>
-<!--    <depends>com.intellij.modules.androidstudio</depends>-->
+    <depends>com.intellij.modules.androidstudio</depends>
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
@@ -27,6 +26,12 @@
         <defaultProjectTypeProvider type="Android" />
         <toolWindow factoryClass="me.bytebeats.asp.analyzer.AdbToolWindowFactory" secondary="true" anchor="bottom"
             icon="/icons/help-network.png" id="OkHttp Analyzer" />
+        <notificationGroup displayType="NONE" id="OkHttp Analyzer Log" icon="AllIcons.General.NotificationInfo"
+            key="notification.group.main" isLogByDefault="true" />
+        <notificationGroup displayType="BALLOON" id="OkHttp Analyzer Balloon"
+            icon="AllIcons.General.NotificationWarning" key="notification.group.balloon" isLogByDefault="true" />
+        <notificationGroup displayType="TOOL_WINDOW" id="OkHttp Analyzer Tool Window" icon="AllIcons.Plugins.Updated"
+            toolWindowId="OkHttp Analyzer Tool Window" key="notification.group.toolwindow" isLogByDefault="true" />
     </extensions>
 
     <actions>

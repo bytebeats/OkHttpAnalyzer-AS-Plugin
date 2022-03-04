@@ -12,6 +12,7 @@ import me.bytebeats.asp.analyzer.data.RequestDataSource
 import me.bytebeats.asp.analyzer.enums.MessageType
 import me.bytebeats.asp.analyzer.util.TAG_DELIMITER
 import me.bytebeats.asp.analyzer.util.TAG_KEY
+import me.bytebeats.asp.analyzer.util.info
 import me.bytebeats.asp.analyzer.view.FormViewManager
 import org.jetbrains.android.sdk.AndroidSdkUtils
 import java.awt.event.ActionEvent
@@ -57,8 +58,8 @@ class AdbManager(
                         val debugRequest = RequestDataSource.getRequestFromMessage(id, messageType, line.message)
                         if (debugRequest != null) {
                             try {
-                                mainForm.updateMethodList(debugRequest.method)
                                 SwingUtilities.invokeLater {
+                                    mainForm.updateMethodList(debugRequest.method)
                                     requestTableManager.insertOrUpdate(debugRequest)
                                 }
                             } catch (e: Exception) {
@@ -73,6 +74,10 @@ class AdbManager(
 
     init {
         initDeviceList(project)
+        initMethodList()
+    }
+
+    private fun initMethodList() {
         mainForm.setMethodItemListener {
             if (it.stateChange == ItemEvent.SELECTED) {
                 requestTableManager.methodFilter = mainForm.methodList.selectedItem as String
@@ -88,36 +93,36 @@ class AdbManager(
     private fun initDeviceList(project: Project) {
         AndroidDebugBridge.addDeviceChangeListener(object : AndroidDebugBridge.IDeviceChangeListener {
             override fun deviceChanged(device: IDevice?, p1: Int) {
-                log("deviceChanged $device")
+                info("deviceChanged $device")
                 device?.let {
                     attachToDevice(it)
                 }
             }
 
             override fun deviceConnected(device: IDevice?) {
-                log("deviceConnected $device")
+                info("deviceConnected $device")
                 updateDeviceList(AndroidDebugBridge.getBridge()?.devices)
             }
 
             override fun deviceDisconnected(device: IDevice?) {
-                log("deviceDisconnected $device")
+                info("deviceDisconnected $device")
                 updateDeviceList(AndroidDebugBridge.getBridge()?.devices)
             }
         })
         AndroidDebugBridge.addDebugBridgeChangeListener {
             val devices = it?.devices
             if (devices?.isNotEmpty() == true) {
-                log("addDebugBridgeChangeListener $it")
+                info("addDebugBridgeChangeListener $it")
                 updateDeviceList(devices)
             } else {
-                log("addDebugBridgeChangeListener EMPTY $it and connected ${it?.isConnected}")
+                info("addDebugBridgeChangeListener EMPTY $it and connected ${it?.isConnected}")
             }
         }
         AndroidDebugBridge.addClientChangeListener { client: Client?, _: Int ->
             updateClient(client)
         }
         val bridge0: AndroidDebugBridge? = AndroidSdkUtils.getDebugBridge(project)
-        log("initDeviceList bridge0 ${bridge0?.isConnected}")
+        info("initDeviceList bridge0 ${bridge0?.isConnected}")
     }
 
     private fun updateClient(client: Client?) {
@@ -128,7 +133,7 @@ class AdbManager(
             for (i in 0 until clientModel.size) {
                 val model = clientModel.getElementAt(i)
                 if (model.pid == clientData.pid) {
-                    log("updateClient ${clientData.pid}")
+                    info("updateClient ${clientData.pid}")
                     model.process = clientData.packageName
                     model.clientDescription = clientData.clientDescription
                     if (model.getClientKey() == prefSelectedPackage) {
@@ -144,7 +149,7 @@ class AdbManager(
     }
 
     private fun updateDeviceList(devices: Array<IDevice>?) {
-        log("updateDeviceList ${devices?.size}")
+        info("updateDeviceList ${devices?.size}")
         val selectedDeviceName = preferences.selectedDevice
         var selectedDevice: IDevice? = null
         if (devices != null) {
@@ -161,7 +166,7 @@ class AdbManager(
             list.model = model
             list.addItemListener {
                 if (it.stateChange == ItemEvent.SELECTED) {
-                    log("Selected ${list.selectedItem}")
+                    info("Selected ${list.selectedItem}")
                     val device = list.selectedItem as DebugDevice
                     attachToDevice(device.device)
                     preferences.selectedDevice = device.device.name
@@ -186,10 +191,10 @@ class AdbManager(
     }
 
     private fun createProcessList(device: IDevice) {
-        val prefSelectedPackage = preferences.selectedProcess
+        val prefSelectedProcess = preferences.selectedProcess
         var defaultSelection: DebugProcess? = null
         val debugProcessList = ArrayList<DebugProcess>()
-        log("createProcessList ${device.clients.size}")
+        info("createProcessList ${device.clients.size}")
         for (client in device.clients) {
             val clientData = client.clientData
             val process = DebugProcess(
@@ -197,10 +202,10 @@ class AdbManager(
                 clientData.packageName,
                 clientData.clientDescription
             )
-            if (prefSelectedPackage == process.getClientKey()) {
+            if (prefSelectedProcess == process.getClientKey()) {
                 defaultSelection = process
             }
-            log("addClient $process")
+            info("addClient $process")
             debugProcessList.add(process)
         }
         val model = DefaultComboBoxModel(debugProcessList.toTypedArray())
@@ -211,7 +216,7 @@ class AdbManager(
                 preferences.selectedProcess = client.getClientKey()
                 defaultSelection = client
                 selectedProcess = client
-                log("selectedProcess $defaultSelection")
+                info("selectedProcess $defaultSelection")
                 requestTableManager.clear()
 //                requestTableManager.addAll(RequestDataSource.r(client.getClientKey()))
                 mainForm.resetMethodList()
@@ -226,12 +231,8 @@ class AdbManager(
     }
 
 
-    private fun log(text: String) {
-        println(text)
-    }
-
     private fun setListener(device: IDevice) {
-        log(device.toString())
+        info(device.toString())
         val prevDevice = selectedDevice
         if (prevDevice != null) {
             logcatService.removeListener(prevDevice, logcatListener)

@@ -29,10 +29,10 @@ public class MainForm {
     private JPanel panel;
     private JComboBox<DebugDevice> deviceList;
     private JComboBox<DebugProcess> appList;
+    private JComboBox<String> methodList;
     private JPanel mainContainer;
     private JEditorPane initialHtml;
     private JPanel buttonContainer;
-    private JComboBox<String> methodList;
     private JTextField keywordFilter;
     private final JButton scrollToBottomButton;
     private final JButton clearButton;
@@ -47,6 +47,7 @@ public class MainForm {
         donateButton = new JButton();
         donateButton.setPreferredSize(new Dimension(30, 30));
         donateButton.setIcon(ResourcesKt.getIcon("donate.png"));
+        donateButton.setToolTipText(ResourcesKt.getString("donate"));
         GridBagConstraints donateButtonConstraints = new GridBagConstraints();
         donateButtonConstraints.gridx = 1;
         donateButtonConstraints.gridy = 0;
@@ -54,6 +55,7 @@ public class MainForm {
         scrollToBottomButton = new JButton();
         scrollToBottomButton.setIcon(ResourcesKt.getIcon("scroll.png"));
         scrollToBottomButton.setPreferredSize(new Dimension(30, 30));
+        scrollToBottomButton.setToolTipText(ResourcesKt.getString("scroll_to_bottom"));
         GridBagConstraints scrollConstraints = new GridBagConstraints();
         scrollConstraints.gridx = 2;
         scrollConstraints.gridy = 0;
@@ -61,6 +63,7 @@ public class MainForm {
         clearButton = new JButton();
         clearButton.setPreferredSize(new Dimension(30, 30));
         clearButton.setIcon(ResourcesKt.getIcon("delete.png"));
+        clearButton.setToolTipText(ResourcesKt.getString("clear"));
         GridBagConstraints clearConstraints = new GridBagConstraints();
         clearConstraints.gridx = 3;
         clearConstraints.gridy = 0;
@@ -160,7 +163,6 @@ public class MainForm {
         if (!methods.contains(method)) {
             methods.add(method);
             methodList.setModel(new DefaultComboBoxModel<>(new Vector<>(methods)));
-            methodList.addItemListener(methodItemListener);
         }
     }
 }

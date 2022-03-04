@@ -2,6 +2,7 @@ package me.bytebeats.asp.analyzer
 
 import com.intellij.ide.util.PropertiesComponent
 import me.bytebeats.asp.analyzer.util.SELECTED_DEVICE
+import me.bytebeats.asp.analyzer.util.SELECTED_METHOD
 import me.bytebeats.asp.analyzer.util.SELECTED_PID
 import me.bytebeats.asp.analyzer.util.SELECTED_TAB
 
@@ -31,5 +32,11 @@ class Preferences(private val properties: PropertiesComponent) {
         get() = properties.getValue(SELECTED_TAB)
         set(value) {
             properties.setValue(SELECTED_TAB, value)
+        }
+
+    var selectedMethod: String?
+        get() = properties.getValue(SELECTED_METHOD)
+        set(value) {
+            properties.setValue(SELECTED_METHOD, value)
         }
 }

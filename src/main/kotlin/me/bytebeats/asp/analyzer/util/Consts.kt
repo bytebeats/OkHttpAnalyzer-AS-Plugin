@@ -16,6 +16,7 @@ const val BUNDLE_STRINGS = "strings"
 const val SELECTED_DEVICE = "selected_device"
 const val SELECTED_PID = "selected_pid"
 const val SELECTED_TAB = "selected_tab"
+const val SELECTED_METHOD = "selected_method"
 const val NEW_LINE = "\r\n"
 const val SPACE = " "
 
